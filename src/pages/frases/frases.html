@@ -1,0 +1,24 @@
+<ion-content padding>
+    <ion-list *ngIf="frases?.length">
+        <ion-item  *ngFor="let frase of frases">
+            <h2 (click)="openSlide(frase)">{{frase.name}}</h2>
+            <p>{{frase.description}}</p>
+            <button (click)="playFrase(frase)" ion-button item-right>
+                <ion-icon name="play"></ion-icon>
+            </button>3
+            <button (click)="editarFrase(frase)" ion-button item-right>
+                <ion-icon name="edit"></ion-icon>
+            </button>
+        </ion-item>
+    </ion-list>
+    <ion-row *ngIf="!frases?.length">
+        <ion-col text-center>
+            No se han creado frases.
+        </ion-col>
+    </ion-row>
+    <ion-fab right bottom>
+        <button (click)="nuevaFrase()" ion-fab color="secondary">
+            <ion-icon name="add-circle"></ion-icon>
+        </button>
+    </ion-fab>
+</ion-content>

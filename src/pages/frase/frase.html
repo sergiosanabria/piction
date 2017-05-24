@@ -1,0 +1,63 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>frase</ion-title>
+    </ion-navbar>
+
+</ion-header>
+<ion-content no-padding>
+    <ion-list>
+        <ion-item>
+            <ion-label floating>Nombre</ion-label>
+            <ion-input type="text" [(ngModel)]="frase.name"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>Descripción</ion-label>
+            <ion-input type="text" [(ngModel)]="frase.description"></ion-input>
+        </ion-item>
+    </ion-list>
+
+    <ion-list *ngIf="selectedFrase?.length">
+        <ion-item *ngFor="let item of selectedFrase" (click)="speak(item)">
+            <ion-thumbnail (click)="editName(item)" item-left *ngIf="item.type == 'picto'">
+                <img [src]="item.data.file_name">
+            </ion-thumbnail>
+            <h2>{{item.data.name}}</h2>
+            <h3>{{item.data.category}}</h3>
+            <p>{{item.data.description}}</p>
+            <button ion-button item-right>
+                <ion-icon name="play"></ion-icon>
+            </button>
+            <button (click)="removeItem(item)" ion-button color="danger" item-right>
+                <ion-icon name="remove-circle"></ion-icon>
+            </button>
+        </ion-item>
+    </ion-list>
+
+    <ion-row *ngIf="!selectedFrase?.length">
+        <ion-col text-center>
+            No se han cargado palabros o pictogramas.
+        </ion-col>
+    </ion-row>
+    <ion-fab top right edge  #fab>
+        <button ion-fab color="primary">
+            <ion-icon name="add-circle"></ion-icon>
+        </button>
+        <ion-fab-list side="down">
+            <button ion-fab (click)="openPicto( fab)"><ion-icon name="image"></ion-icon></button>
+            <button ion-fab (click)="openPalabra( fab)"><ion-icon name="text"></ion-icon></button>
+        </ion-fab-list>
+    </ion-fab>
+    <ion-fab left bottom>
+        <button (click)="playFrase()" ion-fab color="dark">
+            <ion-icon *ngIf="!played"  name="play"></ion-icon>
+            <ion-icon *ngIf="played" name="square"></ion-icon>
+        </button>
+    </ion-fab>
+    <ion-fab right bottom>
+        <button (click)="save()" ion-fab color="secondary">
+            <ion-icon   name="checkmark"></ion-icon>
+        </button>
+    </ion-fab>
+
+</ion-content>

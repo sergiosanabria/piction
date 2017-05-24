@@ -1,0 +1,35 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Frase</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-slides (ionSlideDidChange)="slideChanged()" *ngIf="frase?.items.length > 0" pager>
+    <ion-slide *ngFor="let item of frase.items">
+      <ion-toolbar>
+        <ion-buttons end>
+          <button ion-button color="primary">Stop</button>
+        </ion-buttons>
+      </ion-toolbar>
+      <img *ngIf="item.type == 'picto'" [src]="item.data.file_name" class="slide-image" />
+      <h2 *ngIf="item.type == 'picto'" class="slide-title" [innerHTML]="item.data.name"></h2>
+      <h1 *ngIf="item.type == 'palabra'" class="slide-title" [innerHTML]="item.data.name"></h1>
+      <p [innerHTML]="item.data.desciption"></p>
+    </ion-slide>
+    <!--<ion-slide>
+      <ion-toolbar>
+      </ion-toolbar>
+      <img src="assets/img/ica-slidebox-img-4.png" class="slide-image" />
+      <h2 class="slide-title">Ready to Play?</h2>
+      <button ion-button large clear icon-right color="primary">
+        Continue
+        <ion-icon name="arrow-forward"></ion-icon>
+      </button>
+    </ion-slide>-->
+  </ion-slides>
+
+</ion-content>

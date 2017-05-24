@@ -1,0 +1,28 @@
+<ion-header *ngIf="selectedFrase">
+    <ion-navbar>
+        <ion-title >Agregar pictograma</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content no-padding>
+    <ion-searchbar [(ngModel)]="search" (ionInput)="onInput($event)">
+    </ion-searchbar>
+
+    <ion-list *ngIf="pictogramasShow?.length">
+        <ion-item *ngFor="let pic of pictogramasShow">
+            <ion-thumbnail item-left>
+                <img [src]="pic.file_name">
+            </ion-thumbnail>
+            <h2>{{pic.name}}</h2>
+            <h3>{{pic.category}}</h3>
+            <p>{{pic.description}}</p>
+            <button (click)="speak(pic)" ion-button item-right><ion-icon name="play"></ion-icon></button>
+            <button ion-button *ngIf="selectedFrase" (click)="addPictograma(pic)" color="secondary" item-right><ion-icon name="add"></ion-icon></button>
+        </ion-item>
+    </ion-list>
+
+    <ion-row *ngIf="!pictogramasShow?.length" >
+        <ion-col text-center>
+            No se han encontrado pictogramas.
+        </ion-col>
+    </ion-row>
+</ion-content>
