@@ -1,7 +1,7 @@
 <ion-header>
 
     <ion-navbar>
-        <ion-title>frase</ion-title>
+        <ion-title>Frase</ion-title>
     </ion-navbar>
 
 </ion-header>
@@ -16,30 +16,28 @@
             <ion-input type="text" [(ngModel)]="frase.description"></ion-input>
         </ion-item>
     </ion-list>
-
     <ion-list *ngIf="selectedFrase?.length">
-        <ion-item *ngFor="let item of selectedFrase" (click)="speak(item)">
-            <ion-thumbnail (click)="editName(item)" item-left *ngIf="item.type == 'picto'">
-                <img [src]="item.data.file_name">
+        <ion-item *ngFor="let item of selectedFrase" (click)="editName(item)">
+            <ion-thumbnail item-left *ngIf="item.type == 'picto' || item.type == 'custom'">
+                <img [src]="item.data.path">
             </ion-thumbnail>
             <h2>{{item.data.name}}</h2>
             <h3>{{item.data.category}}</h3>
             <p>{{item.data.description}}</p>
-            <button ion-button item-right>
+            <button ion-button (click)="$event.stopPropagation();speak(item)" item-right>
                 <ion-icon name="play"></ion-icon>
             </button>
-            <button (click)="removeItem(item)" ion-button color="danger" item-right>
+            <button (click)="$event.stopPropagation();removeItem(item)" ion-button color="danger" item-right>
                 <ion-icon name="remove-circle"></ion-icon>
             </button>
         </ion-item>
     </ion-list>
-
     <ion-row *ngIf="!selectedFrase?.length">
         <ion-col text-center>
             No se han cargado palabros o pictogramas.
         </ion-col>
     </ion-row>
-    <ion-fab top right edge  #fab>
+    <ion-fab top right edge #fab>
         <button ion-fab color="primary">
             <ion-icon name="add-circle"></ion-icon>
         </button>
@@ -59,5 +57,4 @@
             <ion-icon   name="checkmark"></ion-icon>
         </button>
     </ion-fab>
-
 </ion-content>

@@ -1,15 +1,42 @@
-<ion-content padding>
+<ion-header *ngIf="selectedActividad">
+    <ion-navbar>
+        <ion-title>Agregar frase</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content no-padding>
     <ion-list *ngIf="frases?.length">
-        <ion-item  *ngFor="let frase of frases">
-            <h2 (click)="openSlide(frase)">{{frase.name}}</h2>
-            <p>{{frase.description}}</p>
-            <button (click)="playFrase(frase)" ion-button item-right>
+        <ion-item-sliding *ngFor="let frase of frases">
+            <ion-item (click)="selectedActividad?addFrase(frase):editarFrase(frase)">
+                <h2>{{frase.name}}</h2>
+                <p>{{frase.description}}</p>
+                <!--<button (click)="$event.stopPropagation();openSlide(frase)" ion-button item-right>
                 <ion-icon name="play"></ion-icon>
-            </button>3
-            <button (click)="editarFrase(frase)" ion-button item-right>
-                <ion-icon name="edit"></ion-icon>
             </button>
-        </ion-item>
+                <button *ngIf="!selectedActividad" (click)="$event.stopPropagation();printFrase(frase)" ion-button item-right>
+                <ion-icon name="print"></ion-icon>
+            </button>
+                <button ion-button *ngIf="selectedActividad" (click)="$event.stopPropagation();editarFrase(frase)" color="secondary" item-right>
+                <ion-icon name="paper"></ion-icon>
+                </button>-->
+            </ion-item>
+
+            <ion-item-options side="right">
+                <button ion-button (click)="openSlide(frase)"> 
+                    <ion-icon name="play"></ion-icon> Ver pictos
+                </button>
+                <button *ngIf="!selectedActividad" ion-button (click)="printFrase(frase)"> 
+                    <ion-icon name="print"></ion-icon> Imprimir
+                </button>
+                <button *ngIf="selectedActividad" (click)="editarFrase(frase)" color="secondary"> 
+                    <ion-icon name="paper"></ion-icon> Editar
+                </button>
+                <button *ngIf="!selectedActividad" ion-button color="danger" (click)="removeItem(frase)"> 
+                    <ion-icon name="trash"></ion-icon>
+                    Eliminar
+                    </button>
+
+            </ion-item-options>
+        </ion-item-sliding>
     </ion-list>
     <ion-row *ngIf="!frases?.length">
         <ion-col text-center>

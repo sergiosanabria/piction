@@ -1,0 +1,65 @@
+<!--
+  Generated template for the RegistrarPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>registrar</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <form [formGroup]="form" (ngSubmit)="registrar()">
+    <ion-item>
+      <ion-label floating>Nombres</ion-label>
+      <ion-input type="text" formControlName="nombres"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Apellido</ion-label>
+      <ion-input formControlName="apellido"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Fecha de nacimiento</ion-label>
+      <ion-datetime displayFormat="DD MMM YYYY" formControlName="fechaNacimiento" (focus)="showDatePicker()">></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>Sexo</ion-label>
+      <ion-select formControlName="fechaNacimiento">
+        <ion-option value="f">Femenino</ion-option>
+        <ion-option value="m">Masculino</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Correo electrónico</ion-label>
+      <ion-input formControlName="email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Nombre de usuario</ion-label>
+      <ion-input formControlName="username"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Contraseña</ion-label>
+      <ion-input formControlName="pass1" type="password"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Repite la contraseña</ion-label>
+      <ion-input formControlName="pass2" type="password"></ion-input>
+    </ion-item>
+
+    <ion-row>
+      <ion-col>
+        <button ion-button full type="submit" [disabled]="!form.valid" color="secondary"> Registrarme</button>
+      </ion-col>
+      <ion-col>
+        <button ion-button full>Volver al login</button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

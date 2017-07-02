@@ -1,0 +1,44 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Cambiar datos de perfil</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <ion-item>
+      <ion-label floating>Nombres</ion-label>
+      <ion-input type="text" formControlName="nombre"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Apellido</ion-label>
+      <ion-input formControlName="apellido"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Fecha de nacimiento</ion-label>
+      <ion-datetime displayFormat="DD MMM YYYY" formControlName="fechaNacimiento" (focus)="showDatePicker()">></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>Sexo</ion-label>
+      <ion-select formControlName="sexo">
+        <ion-option value="f">Femenino</ion-option>
+        <ion-option value="m">Masculino</ion-option>
+      </ion-select>
+    </ion-item>
+     <ion-item>
+    
+    </ion-item>
+    <ion-item>
+      <ion-label>Perfil</ion-label>
+      <ion-textarea placeholder="Escribí algo, acerca de vos" formControlName="perfil">
+      </ion-textarea>
+        
+    </ion-item>
+    <ion-row>
+      <button ion-button block type="submit" [disabled]="!form.valid" color="secondary"> Guardar perfil</button>
+    </ion-row>
+  </form>
+</ion-content>

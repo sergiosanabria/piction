@@ -1,3 +1,4 @@
+import { ActividadesPage } from './../actividades/actividades';
 import { Component } from '@angular/core';
 
 import {PictoPage} from "../picto/picto";
@@ -11,7 +12,7 @@ export class TabsPage {
 
   tab1Root = PictoPage;
   tab2Root = FrasesPage;
-  tab3Root = '';
+  tab3Root = ActividadesPage;
 
   constructor() {
 

@@ -1,4 +1,5 @@
 import { Config } from './../../app/config/config';
+import { CacheService } from "ionic-cache";
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, RequestOptionsArgs, URLSearchParams, Response } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
@@ -20,18 +21,29 @@ export class ApiProvider {
     headers: Headers;
     options: RequestOptions;
     opt: RequestOptionsArgs;
+    isCache: boolean;
+    isDebug: boolean;
+    tokenDebug: string;
 
     constructor(public http: Http,
         public _config: Config,
         private transfer: Transfer,
+        private cache: CacheService,
         public authService: AuthProvider) {
         console.log('Hello ApiProvider Provider');
 
 
         this.requestUri = _config.get('apiUrl');
 
+        this.isCache = _config.get('isCache');
+        this.isDebug = _config.get('isDebug');
+
+        if (this.isDebug) {
+            this.tokenDebug = _config.get('tokenDebug');
+        }
+
+
         this.headers = new Headers({ 'Content-Type': 'application/json' });
-        console.log(this.authService.access_token);
         this.headers.append('Authorization', 'Bearer ' + this.authService.access_token);
 
         this.opt = {
@@ -39,6 +51,15 @@ export class ApiProvider {
         };
 
         this.options = new RequestOptions(this.opt);
+
+        if (this.isCache) {
+            // Set TTL to 12h
+            cache.setDefaultTTL(60 * 60 * 12);
+
+            // Keep our cached results when device is offline!
+            cache.setOfflineInvalidate(false);
+        }
+
     }
 
     get(resource: string, id: number): Promise<any> {
@@ -50,7 +71,7 @@ export class ApiProvider {
     }
 
 
-    getAll(resource: string, params?: any): Promise<any> {
+    getAll(resource: string, params?: any, forceReload = false): Promise<any> {
 
         let search = new URLSearchParams();
 
@@ -66,10 +87,30 @@ export class ApiProvider {
 
         options.params = search;
 
-        return this.http.get(this.requestUri + '/' + resource, options)
-            .toPromise()
-            .then(this.extractData)
-            .catch(this.handleError);
+        let url = this.requestUri + '/' + resource;
+
+        let req = this.http.get(url, options);
+
+        if (this.isCache) {
+            let result: any;
+            if (forceReload) {
+                result = this.cache.loadFromDelayedObservable(url, req, resource, 0, 'all');
+            } else {
+                result = this.cache.loadFromObservable(url, req, resource);
+            }
+
+            return result
+                .toPromise()
+                .then(this.extractData)
+                .catch(this.handleError);
+        } else {
+            return req
+                .toPromise()
+                .then(this.extractData)
+                .catch(this.handleError);
+        }
+
+
 
 
     }
@@ -78,6 +119,11 @@ export class ApiProvider {
     post(resource: string, params?: any) {
         return new Promise(
             (resolve, reject) => {
+                let url = this.requestUri + '/' + resource;
+
+                if (this.isDebug) {
+                    url += '?XDEBUG_SESSION_START=' + this.tokenDebug;
+                }
                 this.http.post(this.requestUri + '/' + resource, params, this.options)
                     .subscribe(
                     res => {
@@ -96,7 +142,18 @@ export class ApiProvider {
     put(resource: any, id: number, params): Promise<any> {
         return new Promise(
             (resolve, reject) => {
-                return this.http.put(this.requestUri + "/" + resource + "/" + id, params, this.options)
+                let url: string;
+                if (id) {
+                    url = this.requestUri + "/" + resource + "/" + id;
+                } else {
+                    url = this.requestUri + "/" + resource;
+                }
+
+                if (this.isDebug) {
+                    url += '?XDEBUG_SESSION_START=' + this.tokenDebug;
+                }
+
+                return this.http.put(url, params, this.options)
                     .subscribe(
                     res => {
                         resolve(res.json());
@@ -180,11 +237,16 @@ export class ApiProvider {
             const body = error.json() || '';
             const err = body.error || JSON.stringify(body);
             errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+
+
         } else {
             errMsg = error.message ? error.message : error.toString();
         }
-        // console.error(errMsg);
-        // return Promise.reject(errMsg);
+
+
+        console.log("errMsg", error);
+
+
         console.error(errMsg);
         return Promise.reject(error);
     }

@@ -1,9 +1,10 @@
+import { MsgProvider } from './../../providers/msg/msg';
+import { ApiProvider } from './../../providers/api/api';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, FabContainer, AlertController } from 'ionic-angular';
 import { PictoPage } from "../picto/picto";
 import { PalabraPage } from "../palabra/palabra";
 import { TextToSpeech } from '@ionic-native/text-to-speech';
-import { Api } from "../../providers/api";
 // import {isUndefined} from "ionic-angular/umd/util/util";
 
 /**
@@ -22,19 +23,23 @@ export class FrasePage {
     op: string;
     selectedFrase: any;
     frase: any;
-    frases = [];
+    frases: any;
+    callBackFn: any;
     played = false;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, private api: Api, private tts: TextToSpeech, private alertCtrl: AlertController) {
+    resource = "frases";
+
+    constructor(public navCtrl: NavController,
+        public navParams: NavParams,
+        private api: ApiProvider,
+        private msg: MsgProvider,
+        private tts: TextToSpeech, private alertCtrl: AlertController) {
 
         this.frase = this.navParams.get('frase');
-        this.frases = this.navParams.get('frases');
+        // this.frases = this.navParams.get('frases');
+        this.callBackFn = this.navParams.get('callBackFn');
         this.op = this.navParams.get('op');
         this.selectedFrase = this.frase.items;
-        // if (this.op == 'new') {
-
-        // }
-
     }
 
     ionViewDidLoad() {
@@ -111,10 +116,22 @@ export class FrasePage {
 
     removeItem(item) {
         if (this.selectedFrase) {
-            for (let k in this.selectedFrase) {
-                if (item == this.selectedFrase[k]) {
-                    this.selectedFrase.splice(k, 1);
-                }
+
+            if (this.op == "edit") {
+                this.api.delete(this.resource, item.id + "/item").then(() => {
+                    this.popItem(item);
+                });
+            } else {
+                this.popItem(item);
+            }
+
+        }
+    }
+
+    popItem(item) {
+        for (let k in this.selectedFrase) {
+            if (item == this.selectedFrase[k]) {
+                this.selectedFrase.splice(k, 1);
             }
         }
     }
@@ -157,18 +174,12 @@ export class FrasePage {
     }
 
     save() {
-        console.log(this.op);
-        if (this.op == 'new') {
-            this.frases.push(this.frase);
-            // this.api.save('frases', this.frases);
-        } else {
-            //this.api.save('frases', this.frases);
-        }
-        // let toast = this.toast.create({
-        //         message: 'Frase guardada',
-        //         duration: 2000
-        //     })
-        this.navCtrl.pop();
+        this.callBackFn(this.op, this.frase)
+            .then(() => {
+                this.navCtrl.pop();
+            }).catch(() => {
+
+            });
     }
 
 }

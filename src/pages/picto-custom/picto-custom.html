@@ -1,0 +1,31 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Frase</ion-title>
+  </ion-navbar>
+
+</ion-header>
+<ion-content no-padding>
+  <ion-list>
+    <ion-item>
+      <ion-label floating>Nombre</ion-label>
+      <ion-input type="text" [(ngModel)]="picto.name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Descripción</ion-label>
+      <ion-input type="text" [(ngModel)]="picto.description"></ion-input>
+    </ion-item>
+
+  </ion-list>
+  <button ion-button icon-right full (click)="chooseAimage()">
+      Agregar imagen imagen
+      <ion-icon name="image">
+      </ion-icon>
+    </button>
+  <img [src]="picto.path" onerror="this.src = 'assets/img/d.svg'" />
+  <ion-fab right bottom>
+    <button (click)="save()" ion-fab color="secondary">
+            <ion-icon   name="checkmark"></ion-icon>
+        </button>
+  </ion-fab>
+</ion-content>

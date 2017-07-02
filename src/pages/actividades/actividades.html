@@ -1,0 +1,19 @@
+<ion-content no-padding>
+    <ion-list *ngIf="actividades?.length">
+        <ion-item *ngFor="let actividad of actividades">
+            <h2 (click)="editarActividad(actividad)">{{actividad.name}}</h2>
+            <p>{{actividad.description}}</p>
+ 
+        </ion-item>
+    </ion-list>
+    <ion-row *ngIf="!actividades?.length">
+        <ion-col text-center>
+            No se han creado actividades.
+        </ion-col>
+    </ion-row>
+    <ion-fab right bottom>
+        <button (click)="nuevaActividad()" ion-fab color="secondary">
+            <ion-icon name="add-circle"></ion-icon>
+        </button>
+    </ion-fab>
+</ion-content>

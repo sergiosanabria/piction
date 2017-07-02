@@ -1,1 +1,24 @@
-<ion-nav [root]="rootPage"></ion-nav>
+<ion-nav [root]="rootPage" #mycontent></ion-nav>
+<ion-menu [content]="mycontent" #menu>
+  <ion-content>
+    <div class="menu-header">
+      <!--material-design-background-->
+      <img class="usuario-avatar round" (click)="editarFoto (this)" style="padding: .5em;
+        height: 12vh; border-radius: 50%;" [src]="usuario?.persona?.foto? usuario.persona.foto:''" onerror="usuario?.persona.sexo == 'm'? this.src = 'assets/gender/male.svg':  this.src ='assets/gender/female.svg'"
+      />
+      <p class="name" (click)="editarPerfil ()">{{usuario?.persona?.nombreCompleto}}</p>
+      <p class="e-mail" (click)="editarPerfil ()">{{usuario?.email}}</p>
+      <!--<p class="e-mail">{{usuario?.persona.sexo == 'm'}}</p>-->
+    </div>
+    <ion-list no-lines>
+      <button menuClose="left" ion-item detail-none *ngFor="let p of pages" (click)="openPage(p)">
+        <ion-icon [name]="p.icon" item-left></ion-icon>
+        {{p.title}}
+      </button>
+      <button menuClose="left" ion-item detail-none (click)="logout()">
+        <ion-icon name="power" item-left></ion-icon>
+        Salir
+      </button>
+    </ion-list>
+  </ion-content>
+</ion-menu>

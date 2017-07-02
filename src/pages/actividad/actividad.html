@@ -1,0 +1,48 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Actividad</ion-title>
+  </ion-navbar>
+
+</ion-header>
+<ion-content no-padding>
+  <ion-list>
+    <ion-item>
+      <ion-label floating>Nombre</ion-label>
+      <ion-input type="text" [(ngModel)]="actividad.name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Descripción</ion-label>
+      <ion-input type="text" [(ngModel)]="actividad.description"></ion-input>
+    </ion-item>
+  </ion-list>
+  <ion-list *ngIf="actividad?.frases.length">
+    <ion-item *ngFor="let frase of actividad.frases">
+      <h2>{{frase.frase.name}}</h2>
+      <p>{{frase.frase.description}}</p>
+      <button ion-button item-right>
+                <ion-icon name="play"></ion-icon>
+            </button>
+      <button (click)="$event.stopPropagation();removeItem(frase)" ion-button color="danger" item-right>
+                <ion-icon name="remove-circle"></ion-icon>
+            </button>
+    </ion-item>
+  </ion-list>
+
+  <ion-row *ngIf="!actividad?.frases.length">
+    <ion-col text-center>
+      No se han frases.
+    </ion-col>
+  </ion-row>
+  <ion-fab left bottom>
+    <button (click)="openFrases()" ion-fab color="primary">
+            <ion-icon   name="add-circle"></ion-icon>
+        </button>
+  </ion-fab>
+  <ion-fab right bottom>
+    <button (click)="save()" ion-fab color="secondary">
+            <ion-icon   name="checkmark"></ion-icon>
+        </button>
+  </ion-fab>
+
+</ion-content>

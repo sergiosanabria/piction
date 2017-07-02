@@ -13,4 +13,4 @@ import { PictoPage } from './picto';
     PictoPage
   ]
 })
-export class PictoPageModule {}
+export class PictoPageModule { }
