@@ -34,7 +34,7 @@ export class RegistrarPage {
       nombres: ['', Validators.required],
       apellido: [''],
       username: ['', Validators.required],
-      sexo: [''],
+      sexo: ['m'],
       email: ['', Validators.required],
       fechaNacimiento: [''],
       pass1: ['', Validators.required],

@@ -1,9 +1,10 @@
+import { ImgcacheService } from './../directives/img-cache/services/cache-img/cache-img.service';
 import { PerfilPage } from './../pages/perfil/perfil';
 import { PictoPage } from './../pages/picto/picto';
 import { ApiProvider } from './../providers/api/api';
 import { AuthProvider } from './../providers/auth/auth';
 import { LoginPage } from './../pages/login/login';
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Platform, Events, Nav, MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -19,6 +20,8 @@ import { TabsPage } from '../pages/tabs/tabs';
 })
 export class MyApp {
     @ViewChild(Nav) nav: Nav;
+    @ViewChild('foto') foto: ElementRef;
+
     rootPage: any;
     usuario: any;
     pages = [
@@ -39,12 +42,18 @@ export class MyApp {
         private imagePicker: ImagePicker,
         private crop: Crop,
         public menuCtrl: MenuController,
+        imgcacheService: ImgcacheService
     ) {
         platform.ready().then(() => {
             // Okay, so the platform is ready and our plugins are available.
             // Here you can do any higher level native things you might need.
             statusBar.styleDefault();
             splashScreen.hide();
+
+            // initialize imgCache library and set root
+            imgcacheService.initImgCache().then(() => {
+                // this.nav.setRoot(this.rootPage);
+            });
 
             this.listenToEvents();
             // this.menuCtrl.enable(false, 'menu');
@@ -75,6 +84,7 @@ export class MyApp {
             console.log('login event');
             this.nav.setRoot(TabsPage);
             this.usuario = usuario;
+            this.errorImgUser();
             this.menuCtrl.enable(true, 'menu');
             this.menuCtrl.swipeEnable(true, 'menu');
             this.goToHome();
@@ -83,6 +93,7 @@ export class MyApp {
         this.events.subscribe('user:update', (usuario) => {
             console.log('user:update', usuario);
             this.usuario = usuario;
+            
             // this.goToHome();
         });
 
@@ -145,9 +156,17 @@ export class MyApp {
     }
 
 
-    errorImgUser(img) {
+    errorImgUser() {
+        if (typeof this.usuario == "undefined") {
+            return;
+        }
+        if (this.usuario.persona.sexo == 'm') {
+            this.foto.nativeElement.src = 'assets/gender/m.svg';
+        } else {
+            this.foto.nativeElement.src = 'assets/gender/f.svg';
+        }
 
-        img.src = 'assets/gender/male.svg';
+
     }
 
     logout() {

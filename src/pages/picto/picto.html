@@ -5,7 +5,7 @@
 </ion-header>
 <ion-content no-padding>
 
-    <ion-searchbar [(ngModel)]="search" autocapitalize="off" debouce='1000' placeholder="Buscar pictogramas" (ionInput)="onInput($event)">
+    <ion-searchbar  autocorrect="off" [(ngModel)]="search" autocapitalize="off" debouce='1000' placeholder="Buscar pictogramas" (ionInput)="onInput($event)">
     </ion-searchbar>
     <div no-padding>
         <ion-segment (ionChange)="tipoChanged()" [(ngModel)]="tipo">
@@ -21,7 +21,8 @@
     <ion-list *ngIf="pictogramasShow?.length" no-padding>
         <ion-item *ngFor="let pic of pictogramasShow" (click)="selectedFrase?addPictograma(pic):speak(pic)">
             <ion-thumbnail item-left>
-                <img [src]="pic.path" onerror="this.src = 'assets/img/d.svg'">
+                <!--<img [src]="pic.path" onerror="this.src = 'assets/img/d.svg'">-->
+                <lazy-img [inputSrc]="pic.path"></lazy-img>
             </ion-thumbnail>
             <h2>{{pic.name}}</h2>
             <h3>{{pic.category}}</h3>

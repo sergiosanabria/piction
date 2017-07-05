@@ -42,7 +42,7 @@ export class PerfilPage {
       fechaNacimiento: [this.persona.fecha_nacimiento],
     });
   }
-
+  
   ionViewDidLoad() {
 
   }

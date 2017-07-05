@@ -1,5 +1,8 @@
+import { ImgcacheService } from './../directives/img-cache/services/cache-img/cache-img.service';
+import { LazyImgComponent } from './../directives/img-cache/components/lazy-img/lazy-img.component';
+import { LazyLoadDirective } from './../directives/img-cache/directives/lazy-load.directive';
 import { PerfilPageModule } from './../pages/perfil/perfil.module';
-import { ImgDirective } from './../directives/img/img';
+// import { ImgDirective } from './../directives/img/img';
 import { CacheModule } from 'ionic-cache';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { Crop } from '@ionic-native/crop';
@@ -42,7 +45,8 @@ import { MsgProvider } from '../providers/msg/msg';
         MyApp,
         TabsPage,
         FilterPipe,
-        ImgDirective
+
+        // ImgDirective
 
 
     ],
@@ -71,7 +75,8 @@ import { MsgProvider } from '../providers/msg/msg';
     bootstrap: [IonicApp],
     entryComponents: [
         MyApp,
-        TabsPage
+        TabsPage,
+        LazyImgComponent
 
     ],
     providers: [
@@ -88,7 +93,8 @@ import { MsgProvider } from '../providers/msg/msg';
         Transfer,
         File,
         ImagePicker,
-        Crop
+        Crop,
+        ImgcacheService
 
 
     ]
