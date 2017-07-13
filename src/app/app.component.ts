@@ -1,3 +1,4 @@
+import { RegistrarAlumnoPage } from './../pages/registrar-alumno/registrar-alumno';
 import { SolicitudesRecibidasPage } from './../pages/solicitudes-recibidas/solicitudes-recibidas';
 import { MisAmigosPage } from './../pages/mis-amigos/mis-amigos';
 import { BuscarAmigosPage } from './../pages/buscar-amigos/buscar-amigos';
@@ -47,6 +48,11 @@ export class MyApp {
             icon: 'search',
             title: 'Solicitudes de amistad',
             class: SolicitudesRecibidasPage
+        },
+        {
+            icon: 'person-add',
+            title: 'Solicitudes de amistad',
+            class: RegistrarAlumnoPage
         }
     ];
 

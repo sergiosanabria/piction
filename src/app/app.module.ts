@@ -1,3 +1,4 @@
+import { RegistrarAlumnoPageModule } from './../pages/registrar-alumno/registrar-alumno.module';
 import { SolicitudesRecibidasPageModule } from './../pages/solicitudes-recibidas/solicitudes-recibidas.module';
 import { MisAmigosPageModule } from './../pages/mis-amigos/mis-amigos.module';
 import { BuscarAmigosPageModule } from './../pages/buscar-amigos/buscar-amigos.module';
@@ -59,6 +60,7 @@ import { SocketProvider } from '../providers/socket/socket';
         BrowserModule,
         LoginPageModule,
         RegistrarPageModule,
+        RegistrarAlumnoPageModule,
         PerfilPageModule,
         PictoPageModule,
         PictoCustomPageModule,

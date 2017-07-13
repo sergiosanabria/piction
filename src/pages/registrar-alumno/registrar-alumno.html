@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>registrar</ion-title>
+    <ion-title>Registrar alumno</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -15,14 +15,6 @@
 
 <ion-content>
   <form [formGroup]="form" (ngSubmit)="registrar()">
-    <ion-segment [(ngModel)]="tipo">
-      <ion-segment-button value="docente">
-        Docente
-      </ion-segment-button>
-      <ion-segment-button value="alumno">
-        Alumno
-      </ion-segment-button>
-    </ion-segment>
     <ion-item>
       <ion-label floating>Nombres</ion-label>
       <ion-input type="text" formControlName="nombres"></ion-input>
