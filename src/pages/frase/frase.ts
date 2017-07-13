@@ -46,6 +46,12 @@ export class FrasePage {
         console.log('ionViewDidLoad FrasePage');
     }
 
+    ionViewWillLeave() {
+        console.log('ionViewWillLeave FrasePage');
+
+        return false;
+    }
+
     openPicto(fab: FabContainer) {
 
         fab.close();

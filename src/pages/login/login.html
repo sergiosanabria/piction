@@ -3,16 +3,21 @@
     <ion-navbar>
     </ion-navbar>
   </ion-header>
-  <img class="logo rss opacity" src="assets/img/logo.svg" />
-  <div padding>
-    <ion-item>
-      <ion-input type="text" [(ngModel)]="loginForm._username" placeholder="Usuario"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input type="password" [(ngModel)]="loginForm._password" placeholder="Contraseña"></ion-input>
-    </ion-item>
-    <button ion-button block outline (click)="login()" color="light" class="login-button">Ingresar</button>
-  </div>
+  <ion-row col-md-4 offset-md-4>
+    <ion-col text-center>
+      <img class="logo rss opacity" src="assets/img/logo.svg" />
+      <div padding>
+        <ion-item>
+          <ion-input type="text" [(ngModel)]="loginForm._username" placeholder="Usuario"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input type="password" [(ngModel)]="loginForm._password" placeholder="Contraseña"></ion-input>
+        </ion-item>
+        <button ion-button block outline (click)="login()" color="light" class="login-button">Ingresar</button>
+      </div>
+    </ion-col>
+  </ion-row>
+
   <!--<div class="strike">
     <span>OR</span>
   </div>

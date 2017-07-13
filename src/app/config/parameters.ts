@@ -4,7 +4,7 @@ export const parameters: Object =
         apiPath: "",
         isCache: false,
         isDebug: true,
-        tokenDebug: "19459",
+        tokenDebug: "15258",
         client_id: '1',
         client_secret: 'DOacpI0Cxy0zPvCBJZhn01yJNnJMMAqHuPsplzfq'
     };

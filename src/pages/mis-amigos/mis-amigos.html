@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Mis amigos</ion-title>
+  </ion-navbar>
+  <ion-searchbar autocorrect="off" [(ngModel)]="search" autocapitalize="off" debouce='1000' placeholder="Buscar mis amigos" (ionInput)="onInput($event)">
+  </ion-searchbar>
+</ion-header>
+<ion-content no-padding>
+
+  <ion-list *ngIf="amigos?.length" no-padding>
+    <ion-item *ngFor="let u of amigos">
+      <ion-avatar item-left>
+        <img [src]="u.persona.foto" (error)="errorImage(u, $event)">
+        <!--<lazy-img [inputSrc]="u.persona.fotoath"></lazy-img>-->
+      </ion-avatar>
+      <h2>{{u.persona.nombreCompleto}}</h2>
+      <!--<h3>{{u.persona.estudio}}</h3>-->
+      <!--<p>{{u.personadescription}}</p>-->
+      
+      <button *ngIf="" (click)="$event.stopPropagation();" color="danger"
+        ion-button item-right>
+                Cancelar<ion-icon name="remove-circle"></ion-icon>
+                </button>
+    
+    </ion-item>
+  </ion-list>
+</ion-content>

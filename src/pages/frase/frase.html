@@ -15,6 +15,10 @@
             <ion-label floating>Descripción</ion-label>
             <ion-input type="text" [(ngModel)]="frase.description"></ion-input>
         </ion-item>
+        <ion-item>
+            <ion-label>Compartir</ion-label>
+            <ion-toggle [(ngModel)]="frase.compartir"></ion-toggle>
+        </ion-item>
     </ion-list>
     <ion-list *ngIf="selectedFrase?.length">
         <ion-item *ngFor="let item of selectedFrase" (click)="editName(item)">

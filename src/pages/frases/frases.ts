@@ -21,6 +21,8 @@ export class FrasesPage {
     resource = "frases";
     selectedActividad: any;
 
+    isLoad = false;
+
     constructor(public navCtrl: NavController,
         public navParams: NavParams,
         private msg: MsgProvider,
@@ -41,8 +43,17 @@ export class FrasesPage {
             });
     }
 
-    async ionViewDidLoad() {
+    ionViewDidEnter() {
+        console.log('ionViewDidEnter FrasesPage');
+        console.log('ionViewDidEnter FrasesPage this.isLoad', this.isLoad);
+        
+    }
+
+    ionViewDidLoad() {
+
         console.log('ionViewDidLoad FrasesPage');
+        console.log('ionViewDidLoad FrasesPage this.isLoad', this.isLoad);
+        this.isLoad = true;
         pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 

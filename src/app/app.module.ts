@@ -1,3 +1,6 @@
+import { SolicitudesRecibidasPageModule } from './../pages/solicitudes-recibidas/solicitudes-recibidas.module';
+import { MisAmigosPageModule } from './../pages/mis-amigos/mis-amigos.module';
+import { BuscarAmigosPageModule } from './../pages/buscar-amigos/buscar-amigos.module';
 import { ImgcacheService } from './../directives/img-cache/services/cache-img/cache-img.service';
 import { LazyImgComponent } from './../directives/img-cache/components/lazy-img/lazy-img.component';
 import { LazyLoadDirective } from './../directives/img-cache/directives/lazy-load.directive';
@@ -38,6 +41,7 @@ import { NativeStorage } from '@ionic-native/native-storage';
 import { AuthProvider } from '../providers/auth/auth';
 import { IonicStorageModule } from "@ionic/storage";
 import { MsgProvider } from '../providers/msg/msg';
+import { SocketProvider } from '../providers/socket/socket';
 
 
 @NgModule({
@@ -63,6 +67,9 @@ import { MsgProvider } from '../providers/msg/msg';
         FrasesPageModule,
         ActividadesPageModule,
         ActividadPageModule,
+        BuscarAmigosPageModule,
+        MisAmigosPageModule,
+        SolicitudesRecibidasPageModule,
         SlideFrasePageModule,
         HttpModule,
         IonicModule.forRoot(MyApp),
@@ -94,7 +101,8 @@ import { MsgProvider } from '../providers/msg/msg';
         File,
         ImagePicker,
         Crop,
-        ImgcacheService
+        ImgcacheService,
+    SocketProvider
 
 
     ]

@@ -89,10 +89,15 @@ export class ApiProvider {
 
         let url = this.requestUri + '/' + resource;
 
+        if (this.isDebug) {
+            url += '?XDEBUG_SESSION_START=' + this.tokenDebug;
+        }
+
         let req = this.http.get(url, options);
 
         if (this.isCache) {
             let result: any;
+
             if (forceReload) {
                 result = this.cache.loadFromDelayedObservable(url, req, resource, 0, 'all');
             } else {

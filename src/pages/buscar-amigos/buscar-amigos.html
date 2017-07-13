@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Buscar amigos</ion-title>
+
+  </ion-navbar>
+  <ion-searchbar autocorrect="off" [(ngModel)]="search" autocapitalize="off" debouce='1000' placeholder="Buscar amigos" (ionInput)="onInput($event)">
+  </ion-searchbar>
+</ion-header>
+<ion-content no-padding>
+
+  <ion-list *ngIf="amigos?.length" no-padding>
+    <ion-item *ngFor="let u of amigos">
+      <ion-avatar item-left>
+        <img [src]="u.persona.foto" (error)="errorImage(u, $event)">
+        <!--<lazy-img [inputSrc]="u.persona.fotoath"></lazy-img>-->
+      </ion-avatar>
+      <h2>{{u.persona.nombreCompleto}}</h2>
+      <!--<h3>{{u.persona.estudio}}</h3>-->
+      <!--<p>{{u.personadescription}}</p>-->
+      <button *ngIf="!u.solicito && !u.envio && !u.aceptado" (click)="$event.stopPropagation();enviarSolicitud(u)" ion-button item-right>
+                Seguir <ion-icon name="person-add"></ion-icon>
+                </button>
+      <button *ngIf="u.envio && !u.aceptado" (click)="$event.stopPropagation();cancelarSolicitudAmistad(u.envio)" color="danger"
+        ion-button item-right>
+                Cancelar<ion-icon name="remove-circle"></ion-icon>
+                </button>
+      <button *ngIf="u.solicito && !u.aceptado" (click)="$event.stopPropagation();aceptarSolicitud(u.solicito)" color="secondary"
+        ion-button item-right>
+                Aceptar <ion-icon name="checkmark-circle"></ion-icon>
+                </button>
+      <span *ngIf="u.aceptado" color="secondary"  item-right>
+               Amigos <ion-icon name="checkmark"></ion-icon><ion-icon name="checkmark"></ion-icon>
+                </span>
+    </ion-item>
+  </ion-list>
+</ion-content>

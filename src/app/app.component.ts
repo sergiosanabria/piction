@@ -1,3 +1,6 @@
+import { SolicitudesRecibidasPage } from './../pages/solicitudes-recibidas/solicitudes-recibidas';
+import { MisAmigosPage } from './../pages/mis-amigos/mis-amigos';
+import { BuscarAmigosPage } from './../pages/buscar-amigos/buscar-amigos';
 import { ImgcacheService } from './../directives/img-cache/services/cache-img/cache-img.service';
 import { PerfilPage } from './../pages/perfil/perfil';
 import { PictoPage } from './../pages/picto/picto';
@@ -29,6 +32,21 @@ export class MyApp {
             icon: 'home',
             title: 'home',
             class: PictoPage
+        },
+        {
+            icon: 'people',
+            title: 'Mis amigos',
+            class: MisAmigosPage
+        },
+        {
+            icon: 'search',
+            title: 'Buscar amigos',
+            class: BuscarAmigosPage
+        },
+        {
+            icon: 'search',
+            title: 'Solicitudes de amistad',
+            class: SolicitudesRecibidasPage
         }
     ];
 
@@ -93,7 +111,7 @@ export class MyApp {
         this.events.subscribe('user:update', (usuario) => {
             console.log('user:update', usuario);
             this.usuario = usuario;
-            
+
             // this.goToHome();
         });
 
@@ -114,7 +132,7 @@ export class MyApp {
     }
 
     openPage(p) {
-
+        this.nav.push(p.class);
     }
 
     editarPerfil() {
@@ -165,8 +183,6 @@ export class MyApp {
         } else {
             this.foto.nativeElement.src = 'assets/gender/f.svg';
         }
-
-
     }
 
     logout() {
